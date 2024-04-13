@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Acrónimo y Significado</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .contenedor {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        #acronimo {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        #inputSignificado {
+            width: 300px;
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        #botonVerificar {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #F80989;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #botonVerificar:hover {
+            background-color: #D60884;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <div id="acronimo"></div>
+        <input type="text" id="inputSignificado" placeholder="Escribe el significado aquí">
+        <button id="botonVerificar">Verificar</button>
+    </div>
+
+    <script>
+        // Nueva lista de acrónimos y sus significados
+        const acronimos = [
+            {acronimo: 'ARE', significado: 'Área de Responsabilidad Electoral'},
+            {acronimo: 'BE', significado: 'Bodega Electoral'},
+            {acronimo: 'CAE', significado: 'Capacitador Asistente Electoral'},
+            {acronimo: 'CAEL', significado: 'Capacitador Asistente Electoral Local'},
+            {acronimo: 'CDyM', significado: 'Consejos Distritales y Municipales'},
+            {acronimo: 'CRyT', significado: 'Centro de Recolección y Traslado'},
+            {acronimo: 'ECAE', significado: 'Estrategia de Capacitación y Asistencia Electoral'},
+            {acronimo: 'FMDC', significado: 'Funcionarios de Mesas Directivas de Casilla'},
+            {acronimo: 'IEEQ', significado: 'Insituto Electoral del Estado de Querétaro'},
+            {acronimo: 'IMDC', significado: 'Integración de Mesas Directivas de Casilla'},
+            {acronimo: 'INE', significado: 'Insituto Nacional Electoral'},
+            {acronimo: 'JLE', significado: 'Junta Local Ejecutiva'},
+            {acronimo: 'JDE', significado: 'Juntas Distritales Electorales'},
+            {acronimo: 'LGIPE', significado: 'Ley General de Instituciones y Procedimientos Electorales'},
+            {acronimo: 'MDCU', significado: 'Mesa Directiva de Casilla Única'},
+            {acronimo: 'OPL', significado: 'Organismo Público Local'},
+            {acronimo: 'PE', significado: 'Paquete Electoral'},
+            {acronimo: 'PMDC', significado: 'Presidente de Mesa Directiva de Casilla'},
+            {acronimo: 'PREP', significado: 'Programa de Resultados Electorales Preliminares'},
+            {acronimo: 'SE', significado: 'Supervisor Electoral'},
+            {acronimo: 'SEL', significado: 'Supervisor Electoral Local'},
+            {acronimo: 'SIJE', significado: 'Sistema de Información sobre el desarrollo de la Jornada Electoral'},
+            {acronimo: 'TEEQ', significado: 'Tribunal Electoral del Estado de Querétaro'},
+            {acronimo: 'TEPJF', significado: 'Tribunal Electoral del Poder Judicial de la Federación'},
+            {acronimo: 'ZORE', significado: 'Zona de Responsabilidad Electoral'}
+        ];
+
+        // Función para seleccionar un acrónimo al azar
+        function seleccionarAcrónimoAleatorio() {
+            const indiceAleatorio = Math.floor(Math.random() * acronimos.length);
+            return acronimos[indiceAleatorio];
+        }
+
+        // Función para mostrar el acrónimo seleccionado
+        function mostrarAcrónimo() {
+            const acronimoSeleccionado = seleccionarAcrónimoAleatorio();
+            document.getElementById('acronimo').textContent = acronimoSeleccionado.acronimo;
+            // Guardar el significado correcto para verificar más tarde
+            document.getElementById('inputSignificado').dataset.significadoCorrecto = acronimoSeleccionado.significado;
+            // Limpiar el campo de entrada
+            document.getElementById('inputSignificado').value = '';
+        }
+
+        // Función para verificar el significado ingresado por el usuario
+        function verificarSignificado() {
+            const significadoIngresado = document.getElementById('inputSignificado').value;
+            const significadoCorrecto = document.getElementById('inputSignificado').dataset.significadoCorrecto;
+            if (significadoIngresado.toLowerCase() === significadoCorrecto.toLowerCase()) {
+                alert('¡Correcto! El significado es: ' + significadoCorrecto);
+                // Agregar confetti
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            } else {
+                alert('Lo siento, el significado es incorrecto. La respuesta correcta es: ' + significadoCorrecto);
+            }
+            // Volver a mostrar un acrónimo al azar después de verificar
+            mostrarAcrónimo();
+        }
+
+        // Mostrar un acrónimo al cargar la página
+        mostrarAcrónimo();
+
+        // Agregar evento al botón para verificar el significado
+        document.getElementById('botonVerificar').addEventListener('click', verificarSignificado);
+    </script>
+</body>
+</html>
