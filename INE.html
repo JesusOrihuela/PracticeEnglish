@@ -63,9 +63,9 @@
             {acronimo: 'CRyT', significado: 'Centro de Recolección y Traslado'},
             {acronimo: 'ECAE', significado: 'Estrategia de Capacitación y Asistencia Electoral'},
             {acronimo: 'FMDC', significado: 'Funcionarios de Mesas Directivas de Casilla'},
-            {acronimo: 'IEEQ', significado: 'Insituto Electoral del Estado de Querétaro'},
+            {acronimo: 'IEEQ', significado: 'Instituto Electoral del Estado de Querétaro'},
             {acronimo: 'IMDC', significado: 'Integración de Mesas Directivas de Casilla'},
-            {acronimo: 'INE', significado: 'Insituto Nacional Electoral'},
+            {acronimo: 'INE', significado: 'Instituto Nacional Electoral'},
             {acronimo: 'JLE', significado: 'Junta Local Ejecutiva'},
             {acronimo: 'JDE', significado: 'Juntas Distritales Electorales'},
             {acronimo: 'LGIPE', significado: 'Ley General de Instituciones y Procedimientos Electorales'},
@@ -102,7 +102,7 @@
         function verificarSignificado() {
             const significadoIngresado = document.getElementById('inputSignificado').value;
             const significadoCorrecto = document.getElementById('inputSignificado').dataset.significadoCorrecto;
-            if (significadoIngresado.toLowerCase() === significadoCorrecto.toLowerCase()) {
+            if (significadoIngresado.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\s+/g, '') === significadoCorrecto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\s+/g, '')) {
                 alert('¡Correcto! El significado es: ' + significadoCorrecto);
                 // Agregar confetti
                 confetti({
